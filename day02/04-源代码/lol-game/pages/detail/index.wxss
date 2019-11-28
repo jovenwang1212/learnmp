@@ -1,0 +1,51 @@
+page{
+  background-color: #363636;
+}
+
+image{
+  width: 100%;
+}
+
+.content{
+  display: flex;
+  padding:12px 10px 0;
+  color: #fff;
+  font-size: 12px;
+}
+
+.left{
+  width: 191px;
+}
+.right{
+  flex:1;
+}
+.tags text{
+  width: 30px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  background-color: #029b7f;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right:4px;
+}
+.title{
+  font-size: 14px;
+}
+
+.name{
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.ability{
+  margin-top:18px;
+}
+
+.ability .item{
+  display: flex;
+}
+.ability .item progress{
+  width: 100px;
+  margin-left: 6px;
+}

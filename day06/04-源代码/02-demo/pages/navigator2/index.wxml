@@ -1,0 +1,2 @@
+<button bindtap="back">返回页面1</button>
+<button bindtap="toIndex">去首页</button>

@@ -1,0 +1,3 @@
+<view>
+  <view class="item" wx:for="{{arr}}">条目{{item}}</view>
+</view> 

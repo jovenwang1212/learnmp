@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    #app {
+      border: 1px solid green;
+    }
+
+    .child {
+      border: 1px solid hotpink;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>父组件</h2>
+    <h2>对儿子说的话:不要早恋</h2>
+    <child message="不要早恋" parent-msg="牙膏不要从中间挤"></child>
+  </div>
+  <script src="./lib/vue.js"></script>
+  <script type="text/x-template" id="child_tpl">
+    <div class="child">
+        <h2>子组件</h2>
+        <h3>父亲对我说:{{fatherMsg}}</h3>
+        <h3>父亲对我说:{{parentMsg}}</h3>
+        <input type="text" v-model="fatherMsg">
+      </div>
+    </script>
+  <script>
+    Vue.component('child', {
+      template: '#child_tpl',
+      props: ['message','parentMsg'],
+      data(){
+        return{
+          fatherMsg:this.message
+        }
+      }
+    })
+
+    const app = new Vue({
+      el: "#app",
+      data: {}
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+<button bindtap="getAuth">获取授权</button>
+<button bindtap="openSetting">打开设置</button>
+<button open-type="getUserInfo">用户信息</button>

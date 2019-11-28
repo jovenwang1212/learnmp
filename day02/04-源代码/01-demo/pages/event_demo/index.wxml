@@ -1,0 +1,4 @@
+<view class="box" bindtap="hitMouse" data-num="200">
+
+   <view class="inner" data-num="100"></view>
+</view>

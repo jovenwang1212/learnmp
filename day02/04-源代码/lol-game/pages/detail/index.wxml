@@ -1,0 +1,39 @@
+<swiper circular autoplay indicator-dots interval='1000' bindchange="change">
+  <swiper-item wx:for="{{hero.bgs}}" wx:key="*this">
+    <image src="{{item}}"></image>
+  </swiper-item>
+</swiper>
+
+<view class="content">
+  <view class="left">
+    <view class="title">{{hero.title}}</view>
+    <view class="name">{{hero.name}}</view>
+    <!-- 英雄标签 -->
+    <view class="tags">
+      <text wx:for="{{hero.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="ability">
+      <view class="item">
+        <text>生存能力</text>
+        <progress percent="{{hero.Ability.life}}" activeColor="#1ec76b" active stroke-width='12' backgroundColor='#363636'></progress>
+      </view>
+      <view class="item">
+        <text>物理攻击</text>
+        <progress percent="{{hero.Ability.physical}}" activeColor="#f2c40c" active stroke-width='12' backgroundColor='#363636'></progress>
+      </view>
+      <view class="item">
+        <text>魔法攻击</text>
+        <progress percent="{{hero.Ability.magic}}" activeColor="#f2a709" active stroke-width='12' backgroundColor='#363636'></progress>
+      </view>
+      <view class="item">
+        <text>操作难度</text>
+        <progress percent="{{hero.Ability.difficulty}}" activeColor="#cb8eff" active stroke-width='12' backgroundColor='#363636'></progress>
+      </view>
+      
+    </view>
+  </view>
+  <!-- 能力 -->
+  <view class="right">
+    {{hero.story}}
+  </view>
+</view>

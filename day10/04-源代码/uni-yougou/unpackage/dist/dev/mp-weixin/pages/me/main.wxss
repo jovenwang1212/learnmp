@@ -1,0 +1,170 @@
+.container {
+  background-color: #f4f4f4;
+  padding-bottom: 40rpx;
+  font-size: 14px;
+}
+.header {
+  height: 410rpx;
+  background-color: #eb4450;
+  padding-top: 110rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.header .portrait {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 68rpx;
+}
+.header .portrait ._img {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+.header ._p {
+  color: #fff;
+  margin-top: 20rpx;
+}
+.content {
+  margin: -28rpx 18rpx 0;
+  color: #333;
+}
+.content .favo {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #666;
+  background-color: #fff;
+  height: 120rpx;
+  padding: 0 32rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+.content .favo ._li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content .favo .num {
+  color: #999;
+  margin-bottom: 4rpx;
+}
+.content .order-detail {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.content .order-detail .title {
+  height: 88rpx;
+  line-height: 88rpx;
+  padding-left: 30rpx;
+  border-bottom: 1rpx solid #ddd;
+  font-size: 20px;
+}
+.content .order-detail ._ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  height: 166rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content .order-detail ._ul ._li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content .order-detail ._ul ._li .iconfont {
+  color: #eb4450;
+  margin-bottom: 20rpx;
+  font-size: 48rpx;
+}
+.content .address {
+  margin-top: 20rpx;
+  background-color: #fff;
+  padding-left: 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+.content .others {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.content .others ._ul ._li {
+  height: 86rpx;
+  line-height: 86rpx;
+  border-bottom: 1rpx solid #ddd;
+  margin: 0 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.content .others ._ul ._li .right {
+  color: #999;
+}
+.content .others ._ul ._li:last-child {
+  border: none;
+}
+

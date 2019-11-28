@@ -1,0 +1,12 @@
+<view>
+  <text>还是吃得太饱</text>
+  <image src="https://img11.360buyimg.com/babel/s590x470_jfs/t1/103896/37/1845/74741/5dc69891Ea51b0bc7/13f30b70c4a51936.jpg.webp"></image>
+</view>
+<text>第二行</text>
+
+<button>大的按钮</button>
+<button size="mini">点我呀</button>
+<!-- 
+<p>能显示吗</p>
+<xxx>能显示吗</xxx>
+-->

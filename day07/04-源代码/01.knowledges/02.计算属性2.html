@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app">
+    <h2>你会以下哪些技能</h2>
+    <div>
+      <input type="checkbox" v-model='ishtml' id="htmlcb">
+      <label for="htmlcb">html</label>
+      <input type="checkbox" v-model='iscss' id="csscb">
+      <label for="csscb">css</label>
+      <input type="checkbox" v-model='isjs' id="jscb">
+      <label for="jscb">js</label>
+      <hr>
+      <input type="checkbox" name="" id="allcb" v-model="isAll">
+      <label for="allcb">全选</label>
+    </div>
+  </div>
+  <script src="./lib/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        ishtml: true,
+        iscss: true,
+        isjs: true
+      },
+      computed: {
+        isAll: {
+          get() {
+            return this.ishtml && this.iscss && this.isjs
+          },
+          set(newValue) {
+            // console.log(newValue)
+            this.ishtml = newValue
+            this.iscss = newValue
+            this.isjs = newValue
+          }
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

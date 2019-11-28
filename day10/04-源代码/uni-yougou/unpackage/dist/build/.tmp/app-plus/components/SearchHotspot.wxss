@@ -1,0 +1,30 @@
+.search-hotspot {
+  height: 100rpx;
+  padding: 20rpx 16rpx;
+  background-color: #eb4450;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 14px;
+}
+.search-hotspot > ._div {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 60rpx;
+  border-radius: 4rpx;
+  color: #bbb;
+}
+.search-hotspot > ._div icon {
+  margin: 8rpx 16rpx 0 0;
+}
+

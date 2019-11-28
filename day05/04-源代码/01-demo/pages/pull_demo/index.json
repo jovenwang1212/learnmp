@@ -1,0 +1,7 @@
+{
+  "onReachBottomDistance": 50,
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "backgroundColor": "#ccc",
+  "navigationBarTitleText": "下拉刷新-上拉加载"
+}

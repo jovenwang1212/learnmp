@@ -1,0 +1,12 @@
+<text>{{name}}</text>
+
+<view wx:for="{{movieList}}" wx:key="id">
+{{item.name}}--{{index}}
+</view>
+
+<button bindtap="doSth">点我呀</button>
+
+<view>
+  <text>{{num}}</text>
+<button bindtap="add">+</button>
+</view>

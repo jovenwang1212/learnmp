@@ -1,0 +1,1 @@
+<view class="_div"><button open-type="getUserInfo" data-event-opts="{{[['getuserinfo',[['getUserInfo',['$event']]]]]}}" bindgetuserinfo="__e">点我登录</button></view>

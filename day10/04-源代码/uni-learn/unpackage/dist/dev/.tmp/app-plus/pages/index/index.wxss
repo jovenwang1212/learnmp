@@ -1,0 +1,15 @@
+
+input {
+	border: 1px solid #4CD964;
+}
+.box{
+	width: 100px;
+	height: 100px;
+	background-color: green;
+}
+.rbox{
+	width: 200rpx;
+	height: 200rpx;
+	background-color: green;
+}
+

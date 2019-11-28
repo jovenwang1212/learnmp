@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/page1/index",
+    "pages/page2/index",
+    "pages/module_demo/index",
+    "pages/swiper_demo/index",
+    "pages/switch_imgs/index",
+    "pages/box_demo/index",
+    "pages/event_demo/index",
+    "pages/data_demo/index",
+    "pages/goods/index",
+    "pages/tag_demo/index",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "这是一个寂寞的天",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,2 @@
+<button bindtap="showLoading">显示loading</button>
+<button bindtap="hideLoading">隐藏loading</button>

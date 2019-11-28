@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['tap',[['toSearch',['$event']]]]]}}" class="search-hotspot _div" bindtap="__e"><view class="_div"><icon type="search" size="18" color="#bbb"></icon>搜索</view></view>

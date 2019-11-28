@@ -1,0 +1,1 @@
+<button open-type="getPhoneNumber" bindgetuserinfo="getUserInfo">点我登录</button>
