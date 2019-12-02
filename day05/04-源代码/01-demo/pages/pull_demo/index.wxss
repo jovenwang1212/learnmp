@@ -1,11 +1,4 @@
-
-page{
-  color: #333;
-}
-
 .item{
-  height: 150rpx;
-  border-bottom:1rpx solid #cccccc;
+  height: 140rpx;
+  border-bottom:1rpx solid #ccc;
 }
-
-

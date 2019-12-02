@@ -1,11 +1,26 @@
-const NUM_ARR = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// pages/request_demo/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: NUM_ARR
+
+  },
+
+  doRequest(){
+    //  new XMLHttpRequest()
+    // window.XMLHttpRequest= undefined
+    // window.alert = undefined
+    wx.request({
+      url: 'https://api.douban.com/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a',
+      header:{
+        'content-type':'application/x-www-form-urlencoded'
+      },
+      success:res=>{
+        console.log(res)
+      }
+    })
   },
 
   /**
@@ -47,32 +62,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    // 下拉刷新加载第一页
-    setTimeout(()=>{
 
-    this.setData({
-      list: NUM_ARR
-    })
-
-    //主动结束下拉刷新
-    wx.stopPullDownRefresh();
-    },500)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    let list = this.data.list
-    for (let i = 0; i < 10; i++) {
-      list.push(list.length + 1)
-    }
-    setTimeout(() => {
 
-      this.setData({
-        list
-      })
-    }, 500)
   },
 
   /**

@@ -1,9 +1,7 @@
 {
   "pages": [
-    "pages/counter_demo/index",
     "pages/pull_demo/index",
     "pages/pullup_demo/index",
-    
     "pages/pulldown_demo/index",
     "pages/index/index",
     "pages/logs/logs"

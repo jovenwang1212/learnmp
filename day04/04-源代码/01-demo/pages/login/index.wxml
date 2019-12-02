@@ -1,0 +1,1 @@
+<button  bindtap="toMe">去我的</button>

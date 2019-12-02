@@ -1,3 +1,5 @@
 <view>
-  <view class="item" wx:for="{{arr}}">条目{{item}}</view>
-</view> 
+  <view class="item" wx:for="{{list}}">
+  Item {{item}}
+  </view>
+</view>

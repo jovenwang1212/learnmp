@@ -1,1 +1,0 @@
-<input value="hello world" confirm-type="search" bindinput="inputHandler" bindconfirm="confirmHandler"></input>

@@ -1,2 +1,2 @@
-<!--pages/pulldown_demo/index.wxml-->
-<text>pages/pulldown_demo/index.wxml</text>
+<text>{{num}}</text>
+<button bindtap="add">+</button>

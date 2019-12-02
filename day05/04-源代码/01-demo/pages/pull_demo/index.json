@@ -1,7 +1,7 @@
 {
-  "onReachBottomDistance": 50,
+  "usingComponents": {},
   "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark",
   "backgroundColor": "#ccc",
-  "navigationBarTitleText": "下拉刷新-上拉加载"
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50
 }
