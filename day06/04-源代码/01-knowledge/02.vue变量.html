@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2 @click="sayHello">{{message}}</h2>
+  </div>
+  <script src="./lib/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        message: '中分还带波浪，是不是很萌'
+        // pageNum: 1
+      },
+      created(){
+        // app.pageNum=1
+        this.pageNum=1
+      },
+      methods: {
+        sayHello() {
+          alert(this.pageNum)
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

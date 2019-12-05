@@ -1,0 +1,3 @@
+<button bindtap="goBack">返回</button>
+
+<button bindtap="goLog">带我去偷看日记</button>

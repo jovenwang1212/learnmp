@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{person}}</h2>
+      <button @click="add">添加一个属性</button>
+      <h2>{{songList}}</h2>
+    </div>
+    <script src="./lib/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          person:{
+            name:'joven',
+            age:30
+          },
+          songList:[
+            '放学别走',
+            '下课了'
+          ]
+        },
+        methods: {
+          add(){
+            // this.person.hasWife = true
+            Vue.set(this.person,'hasWife',true)
+          }
+        },
+      });
+      </script>
+  </body>
+</html>

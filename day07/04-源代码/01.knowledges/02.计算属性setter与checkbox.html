@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>请选择你会的技能</h2>
+    <input type="checkbox" id="htmlcb" v-model="cbObj.ishtml">
+    <label for="htmlcb">html</label>
+    <input type="checkbox" id="jscb" v-model="cbObj.isjs">
+    <label for="jscb">js</label>
+    <input type="checkbox" id="csscb" v-model="cbObj.iscss">
+    <label for="csscb">css</label>
+    <hr>
+    <input type="checkbox" id="allcb" v-model="isAll">
+    <label for="allcb">全选</label>
+  </div>
+  <script src="./lib/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        cbObj: {
+          ishtml: true,
+          isjs: true,
+          iscss: true
+        }
+      },
+      computed: {
+        isAll: {
+          get() {
+            // return this.ishtml && this.iscss && this.isjs
+            let arr = Object.values(this.cbObj)
+            return arr.every(v=>{
+              return v
+            })
+          },
+          // set(newValue){
+          //   console.log(newValue)
+          //   this.ishtml=newValue
+          //   this.iscss=newValue
+          //   this.isjs=newValue
+          // }
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

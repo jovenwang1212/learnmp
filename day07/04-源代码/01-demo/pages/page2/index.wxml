@@ -1,2 +1,0 @@
-<button bindtap="back">返回</button>
-<button bindtap="switchTab2">去到Tab2</button>

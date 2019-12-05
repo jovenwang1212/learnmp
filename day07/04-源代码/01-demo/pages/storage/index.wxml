@@ -1,7 +1,0 @@
-<button bindtap="saveName">异步存姓名</button>
-<button bindtap="saveAge">同步存年龄</button>
-<button bindtap="getAge">异步取年龄</button>
-<button bindtap="getName">同步取姓名</button>
-<button bindtap="clear">清空storage</button>
-<button bindtap="removeAge">删除年龄数据</button>
-<button bindtap="saveObj">存复杂类型</button>
