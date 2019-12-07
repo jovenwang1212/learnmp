@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/me/index",
-    "pages/cart/index",
-    "pages/01lifecircle/index",
-    "pages/target/index"
+    "pages/auth_demo/index",
+    "pages/index/index",
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -11,17 +10,11 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/me/index",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/cart/index",
-        "text": "日志"
-      }
-    ]
+  "permission":{
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }

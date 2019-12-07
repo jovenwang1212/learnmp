@@ -13,7 +13,7 @@
 		"coverView": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.9.4",
 	"appid": "wxd24d05cdfb5198f9",
 	"projectname": "01-demo",
 	"debugOptions": {

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log('更改data')
+    Vue.nextTick(()=>{
+      // 下一次DOM更新后执行
+      console.log('能获取到更新后的dom？？')
+    })
+    // setTimeout(() => {
+    //   console.log('更新DOM')
+    //   console.log('能获取到更新后的dom？？')
+    // }, 0);
+
+    let p = new Promise(resolve=>{
+        console.log('微任务构造')
+        resolve(1)
+    })
+
+
+    p.then(res=>{
+      console.log('微任务1')
+    })
+    p.then(res=>{
+      console.log('微任务2')
+    })
+   
+  </script>
+</body>
+</html>
