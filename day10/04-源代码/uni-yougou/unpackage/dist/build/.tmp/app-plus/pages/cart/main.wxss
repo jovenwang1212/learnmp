@@ -1,5 +1,5 @@
 .iconfont {
-  font-size: 50rpx;
+  font-size: 44rpx;
 }
 .title {
   height: 88rpx;

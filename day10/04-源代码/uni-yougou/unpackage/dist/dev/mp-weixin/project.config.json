@@ -7,9 +7,9 @@
 		"urlCheck": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
-	"appid": "touristappid",
-	"projectname": "%E4%BC%98%E8%B4%AD%E5%95%86%E5%9F%8E",
+	"libVersion": "2.9.2",
+	"appid": "wx38d8faffac4d34d2",
+	"projectname": "uni-yougou",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -21,13 +21,28 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
+			"current": -1,
+			"list": []
+		},
+		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/pay/main",
+					"pathName": "pages/pay/main",
+					"scene": null
+				}
+			]
 		}
 	}
 }

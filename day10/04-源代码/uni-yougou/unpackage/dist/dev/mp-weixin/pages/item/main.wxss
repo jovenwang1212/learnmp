@@ -1,3 +1,6 @@
+.iconfont {
+  font-size: 36rpx;
+}
 .wrapper {
   background-color: #f4f4f4;
   padding-bottom: 98rpx;
@@ -62,6 +65,7 @@
 }
 .goods-info .name-favo .favo button {
   position: absolute;
+  top: 0;
   opacity: 0;
 }
 .goods-info .express {
@@ -160,6 +164,7 @@
 }
 .fixed-bottom .icon-text button {
   position: absolute;
+  top: 0;
   opacity: 0;
 }
 .fixed-bottom .btn {

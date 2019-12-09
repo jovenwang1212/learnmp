@@ -7,10 +7,10 @@
                alt="">
         </div>
       </div>
-      <p v-if="!userInfo.nickName">登录</p>
-      <p v-else>{{userInfo.nickName}}</p>
+      <p v-if="userInfo.nickName">{{userInfo.nickName}}</p>
+      <p v-else @click="toLogin">登录</p>
     </div>
-    <!-- 主要内容部分 -->
+    <!-- 主要内容部分a -->
     <div class="content">
       <ul class="favo">
         <li>
@@ -33,8 +33,9 @@
       <div class="order-detail">
         <p class="title">我的订单</p>
         <ul>
-          <li v-for="item in menuList" :key="item.name" @click="toOrder(item.index)">
-            <span class="iconfont" :class="item.clsName"></span>
+          <li v-for="item in menuList" :key="item.name"
+          @click="toOrder(item.index)">
+            <span class="iconfont" :class="item.icon"></span>
             <span>{{item.name}}</span>
           </li>
         </ul>
@@ -47,7 +48,7 @@
         <ul>
           <li>
             <span>联系客服</span>
-            <span class="right" @click="makeCall('18771930973')">400-618-4000</span>
+            <span class="right" @click="makeCall">400-618-4000</span>
           </li>
           <li>
             <span>意见反馈</span>
@@ -63,30 +64,29 @@ const DEFAULT_IMG_URL = 'http://www.sucaijishi.com/uploadfile/2018/0508/20180508
 export default {
   data () {
     return {
+      userInfo: {},
+      defaultImgUrl: DEFAULT_IMG_URL,
       menuList: [
         {
           name: '待付款',
-          index: 1,
-          clsName: 'icon-pre-pay'
+          icon: 'icon-pre-pay',
+          index: 1
         },
         {
           name: '待收货',
-          index: 2,
-          clsName: 'icon-pre-receive'
+          icon: 'icon-pre-send',
+          index: 2
         },
         {
           name: '退款/退货',
-          index: 3,
-          clsName: 'icon-tuihuo'
-        },
-        {
+          icon: 'icon-goods-reject',
+          index: 3
+        }, {
           name: '全部订单',
-          index: 0,
-          clsName: 'icon-all-order'
+          icon: 'icon-all-order',
+          index: 0
         }
-      ],
-      userInfo: {},
-      defaultImgUrl: DEFAULT_IMG_URL
+      ]
     }
   },
   onShow () {
@@ -96,10 +96,11 @@ export default {
     toOrder (index) {
       wx.navigateTo({ url: '/pages/order/main?activeIndex=' + index })
     },
-    makeCall (mobileNo) {
-      wx.makePhoneCall({
-        phoneNumber: mobileNo // 仅为示例，并非真实的电话号码
-      })
+    makeCall () {
+      wx.makePhoneCall({ phoneNumber: '15361819220' })
+    },
+    toLogin () {
+      wx.navigateTo({ url: '/pages/login/main' })
     }
   }
 }

@@ -1,2 +1,0 @@
-setCssToHead(["wx-input { border: 1px solid #4CD964; }\n.",[1],"box{ width: 100px; height: 100px; background-color: green; }\n.",[1],"rbox{ width: ",[0,200],"; height: ",[0,200],"; background-color: green; }\n",],undefined,{path:"./pages/index/index.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/index/index.wxml') } }));

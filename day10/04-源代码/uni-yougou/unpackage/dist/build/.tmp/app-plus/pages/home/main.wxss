@@ -1,16 +1,13 @@
-swiper {
+swiper image {
+  width: 100%;
   height: 340rpx;
 }
-swiper ._img {
-  width: 100%;
-  height: 100%;
-}
-.categories {
+.cates {
+  height: 194rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 194rpx;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -20,35 +17,40 @@ swiper ._img {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
 }
-.categories ._img {
+.cates ._img {
   width: 128rpx;
   height: 140rpx;
 }
-.floor ._li > ._img {
+.floor-item {
+  margin-bottom: 20rpx;
+}
+.floor-item > ._img {
   width: 100%;
   height: 88rpx;
 }
-.product-list {
-  padding: 20rpx 17rpx;
+.floor-item .products {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-top: 20rpx;
+  padding-left: 18rpx;
 }
-.product-list > ._img {
+.floor-item .products > ._img {
   width: 232rpx;
   height: 386rpx;
 }
-.product-list .right {
+.floor-item .products .right {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
   font-size: 0;
 }
-.product-list .right ._img {
-  margin: 0 0 10rpx 10rpx;
+.floor-item .products .right > ._img {
   width: 232rpx;
   height: 188rpx;
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;
 }
 

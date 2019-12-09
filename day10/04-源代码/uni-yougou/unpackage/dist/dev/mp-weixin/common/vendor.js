@@ -255,7 +255,7 @@ function isSyncApi(name) {
 }
 
 function isCallbackApi(name) {
-  return CALLBACK_API_RE.test(name);
+  return CALLBACK_API_RE.test(name) && name !== 'onPush';
 }
 
 function handlePromise(promise) {
@@ -734,7 +734,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1285,11 +1285,20 @@ function parseBaseComponent(vueComponentOptions)
 {var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},isPage = _ref5.isPage,initRelation = _ref5.initRelation;var _initVueComponent =
   initVueComponent(_vue.default, vueComponentOptions),_initVueComponent2 = _slicedToArray(_initVueComponent, 2),VueComponent = _initVueComponent2[0],vueOptions = _initVueComponent2[1];
 
-  var componentOptions = {
-    options: {
-      multipleSlots: true,
-      addGlobalClass: true },
+  var options = {
+    multipleSlots: true,
+    addGlobalClass: true };
 
+
+  {
+    // 微信multipleSlots  部分情况有 bug，导致内容顺序错乱 如 u-list，提供覆盖选项
+    if (vueOptions['mp-weixin'] && vueOptions['mp-weixin']['options']) {
+      Object.assign(options, vueOptions['mp-weixin']['options']);
+    }
+  }
+
+  var componentOptions = {
+    options: options,
     data: initData(vueOptions, _vue.default.prototype),
     behaviors: initBehaviors(vueOptions, initBehavior),
     properties: initProperties(vueOptions.props, false, vueOptions.__file),
@@ -6981,7 +6990,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7002,14 +7011,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7085,7 +7094,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7492,9 +7501,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!****************************************************************************!*\
-  !*** C:/Users/panliang/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json ***!
-  \****************************************************************************/
+/*!*************************************************************************!*\
+  !*** C:/Users/joven/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8395,29 +8404,29 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23720191024001","_inBundle":false,"_integrity":"sha512-vJEk493Vdb8KueNzR2otzDi23rfyRcQBo/t1R41MwNGPk+AUB94gh10+HVLo98DRcvMzkuVofz3KXTAfEx24iw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23720191024001.tgz","_shasum":"18272814446a9bc6053bc92666ec7064a1767588","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"a725c04ef762e5df78a9a69d140c2666e0de05fc","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23720191024001"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-24220191115004","_inBundle":false,"_integrity":"sha512-UKnpiHSP7h9c5IFpJFkWkpm1KyWz9iHj1hchrQSUxPhChx+KPOmunnQcKGiQvvBz9CeSi7Se/eauJYha5ch0kw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-24220191115004.tgz","_shasum":"5848f2204f37daaf8c340fb27d9f76b16fcbfdeb","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bcf65737c5111d47398695d3db8ed87305df346e","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-24220191115004"};
 
 /***/ }),
 /* 7 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/panliang/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json?{"type":"style"} ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** C:/Users/joven/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json?{"type":"style"} ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/main": { "navigationBarTitleText": "优购" }, "pages/category/main": { "navigationBarTitleText": "分类" }, "pages/cart/main": { "navigationBarTitleText": "购物车" }, "pages/me/main": { "navigationBarTitleText": "我的" }, "pages/item/main": { "navigationBarTitleText": "商品详情" }, "pages/list/main": { "navigationBarTitleText": "搜索列表", "enablePullDownRefresh": true, "backgroundTextStyle": "dark", "onReachBottomDistance": 50 }, "pages/order/main": { "navigationBarTitleText": "订单列表" }, "pages/order_detail/main": { "navigationBarTitleText": "订单详情" }, "pages/order_result/main": { "navigationBarTitleText": "订单结果" }, "pages/pay/main": { "navigationBarTitleText": "支付" }, "pages/search/main": { "navigationBarTitleText": "搜索" }, "pages/login/main": { "navigationBarTitleText": "登录" } }, "globalStyle": { "backgroundTextStyle": "light", "navigationBarBackgroundColor": "#eb4450", "navigationBarTitleText": "", "navigationBarTextStyle": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/main": { "navigationBarTitleText": "优购", "usingComponents": { "search-link": "/components/SearchLink" } }, "pages/category/main": { "navigationBarTitleText": "分类", "usingComponents": { "search-link": "/components/SearchLink" } }, "pages/cart/main": { "navigationBarTitleText": "购物车", "usingComponents": {} }, "pages/me/main": { "navigationBarTitleText": "我的", "usingComponents": {} }, "pages/item/main": { "navigationBarTitleText": "商品详情", "usingComponents": {} }, "pages/order/main": { "navigationBarTitleText": "订单列表", "usingComponents": {} }, "pages/order_detail/main": { "navigationBarTitleText": "订单详情", "usingComponents": {} }, "pages/order_result/main": { "navigationBarTitleText": "订单结果", "usingComponents": {} }, "pages/pay/main": { "navigationBarTitleText": "支付", "usingComponents": {} }, "pages/search/main": { "navigationBarTitleText": "搜索", "usingComponents": { "search-bar": "/components/SearchBar" } }, "pages/search_list/main": { "enablePullDownRefresh": true, "backgroundColor": "#eee", "backgroundTextStyle": "dark", "navigationBarTitleText": "搜索列表", "onReachBottomDistance": 50, "usingComponents": { "search-bar": "/components/SearchBar" } }, "pages/login/main": { "navigationBarTitleText": "登录" } }, "globalStyle": { "backgroundTextStyle": "light", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#eb4450", "navigationBarTextStyle": "white" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/panliang/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json?{"type":"stat"} ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** C:/Users/joven/Desktop/learnmp/day10/04-源代码/uni-yougou/pages.json?{"type":"stat"} ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__1EAB61E" };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__C0AD60D" };exports.default = _default;
 
 /***/ }),
 /* 9 */,
@@ -8532,75 +8541,82 @@ function normalizeComponent (
 
 /***/ }),
 /* 15 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/panliang/Desktop/learnmp/day10/04-源代码/uni-yougou/utils/request.js ***!
-  \**********************************************************************************/
+/*!*******************************************************************************!*\
+  !*** C:/Users/joven/Desktop/learnmp/day10/04-源代码/uni-yougou/utils/request.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = request;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const BASE_URL = 'https://ugo.botue.com'
 var BASE_URL = 'https://www.uinav.com';
-// const BASE_URL = 'https://autumnfish.cn/wx/'
-
 function request(options) {
+  // 开启loading
+  if (!options.noLoading) {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true });
+
+  }
+
   return new Promise(function (resolve, reject) {
-    // 请求发出前loading,默认有loading
-
-    if (!options.noLoading) {
-      wx.showLoading({
-        title: '' });
-
-      // wx.showNavigationBarLoading()
-    }
+    // 如果options里面有isAuth，就传token
+    // 如果无须登录态，token传空也可以的
     var token = '';
     if (options.isAuth) {
       token = wx.getStorageSync('token');
-      // 如果没有token，跳转登录、
+      // 如果需要登录态，但是没有token，跳转登录
       if (!token) {
         wx.navigateTo({ url: '/pages/login/main' });
+        reject();
         return;
       }
     }
 
     wx.request({
-      url: "".concat(BASE_URL).concat(options.url),
-      data: options.data || {},
-      method: options.method,
+      url: BASE_URL + options.url,
+      data: options.data,
+      method: options.method || 'GET',
       header: {
-        'Authorization': token },
+        Authorization: token },
 
       success: function success(res) {var _res$data =
         res.data,meta = _res$data.meta,message = _res$data.message;
         if (meta.status === 200) {
+          // 成功的消息
           resolve(message);
-        } else if (meta.status === 401) {
-          // 去登陆页面
-          wx.navigateTo({ url: '/pages/login/main' });
         } else {
-          _vue.default.prototype.$showToast("[".concat(meta.status, "]").concat(meta.msg));
+          // console.log('这里进入到success')
+          wx.showToast({
+            title: "[".concat(meta.status, "]").concat(meta.msg), // 提示的内容,
+            icon: 'none' });
+
+          reject(meta);
         }
       },
-      fail: function fail(err) {
-        _vue.default.prototype.$showToast(err.errMsg);
-        // reject(err)
+      fail: function fail() {
+        wx.showToast({
+          title: "\u7F51\u7EDC\u9519\u8BEF\uFF01", // 提示的内容,
+          icon: 'none' });
+
       },
       complete: function complete() {
-        // 请求完成后关闭loading
+        // 关闭loading
         if (!options.noLoading) {
           wx.hideLoading();
-          // wx.hideNavigationBarLoading()
         }
       } });
 
   });
-}
+}var _default =
+
+request;exports.default = _default;
 
 /***/ }),
 /* 16 */
-/*!********************************************************************************!*\
-  !*** C:/Users/panliang/Desktop/learnmp/day10/04-源代码/uni-yougou/store/index.js ***!
-  \********************************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/Users/joven/Desktop/learnmp/day10/04-源代码/uni-yougou/store/index.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8613,38 +8629,19 @@ _vue.default.use(_vuex.default);
 
 var store = new _vuex.default.Store({
   state: {
-    // 购物车数据
     cart: wx.getStorageSync('cart') || {} },
 
   mutations: {
-    // 把内存里面的购物车存到文件系统里面
-    save: function save(state) {
-      wx.setStorageSync('cart', state.cart);
-    },
-    // 添加购物车
-    add2Cart: function add2Cart(state, payload) {
-      var goodsId = payload;
-      // 取
+    add2Cart: function add2Cart(state, goodsId) {
       var cart = state.cart;
-      // 改
-      if (cart[goodsId]) {
-        // 后续添加
-        cart[goodsId] = {
-          num: cart[goodsId].num + 1,
-          checked: true };
-
-      } else {
-        // 初次添加
-        cart[goodsId] = {
-          num: 1,
-          checked: true };
-
-      }
-      wx.showToast({
-        title: '添加购物车成功' });
-
+      // 如果第一次添加，Num:1,否则Num++
+      cart[goodsId] = {
+        num: cart[goodsId] ? ++cart[goodsId].num : 1,
+        checked: true // 只要添加checked都为true
+      };
     },
     updateCart: function updateCart(state, goodsList) {
+      // state里面的cart同步goodsList
       var cart = {};
       goodsList.forEach(function (v) {
         cart[v.goods_id] = {
@@ -8652,22 +8649,21 @@ var store = new _vuex.default.Store({
           checked: v.checked };
 
       });
-      // 存
       state.cart = cart;
     },
-    // 移除cart里面checked的item
-    removeCart: function removeCart(state) {
+    // 把state.cart数据存储到storage里面
+    storeCart: function storeCart(state) {
+      wx.setStorageSync('cart', state.cart);
+    },
+    arrangeCart: function arrangeCart(state) {
       var cart = state.cart;
       for (var key in cart) {
         if (cart[key].checked) {
           delete cart[key];
         }
       }
-      // 避免vue监测不到
-      state.cart = Object.assign({}, cart);
     } },
 
-  // 相当于是state计算属性
   getters: {
     getCart: function getCart(state) {
       return state.cart;

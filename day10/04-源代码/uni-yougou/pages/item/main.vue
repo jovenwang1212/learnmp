@@ -1,29 +1,28 @@
 <template>
   <div class="wrapper">
-
-    <swiper class="swiper"
-            indicator-dots
-            autoplay
-            circular
-            indicator-color="#ccc"
-            indicator-active-color="#fff">
-      <block v-for="(item, index) in goodsDetail.pics"
-             :key="index">
-        <swiper-item @click="previewImg(index)">
-          <image class="swiper-img"
-                 :src="item.pics_big"></image>
+    <swiper
+      class="swiper"
+      indicator-dots
+      autoplay
+      circular
+      indicator-color="#ccc"
+      indicator-active-color="#fff"
+    >
+      <block v-for="(item, index) in goods.pics" :key="index">
+        <swiper-item @click="prevImg(index)">
+          <image class="swiper-img" :src="item.pics_big"></image>
         </swiper-item>
       </block>
     </swiper>
     <!-- 商品信息 -->
     <div class="goods-info">
-      <p class="price">￥{{goodsDetail.goods_price}}</p>
+      <p class="price">￥{{ goods.goods_price }}</p>
       <div class="name-favo">
-        <p class="name">{{goodsDetail.goods_name}}</p>
-        <div class=favo @click="share">
+        <p class="name">{{ goods.goods_name }}</p>
+        <div class="favo">
           <span class="iconfont icon-share"></span>
           <span>分享</span>
-          <!-- <button open-type="share">分享</button> -->
+          <button open-type="share">分享</button>
         </div>
       </div>
       <p class="express">快递: 免运费</p>
@@ -43,10 +42,16 @@
     <!-- 图文介绍 -->
     <div class="goods-detail">
       <div class="tabs">
-        <span :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="(item, index) in menuArr" :key="index">{{item}}</span>
+        <span
+          :class="{ active: activeIndex === index }"
+          v-for="(item, index) in tabs"
+          :key="index"
+          @click="changeIndex(index)"
+          >{{ item }}</span
+        >
       </div>
       <div class="main">
-        <div v-show="!activeIndex" v-html="goodsDetail.goods_introduce"></div>
+        <div v-show="activeIndex === 0" v-html="goods.goods_introduce"></div>
         <div v-show="activeIndex">商品参数</div>
       </div>
     </div>
@@ -54,98 +59,79 @@
       <div class="icon-text">
         <span class="iconfont icon-kefu"></span>
         <span>联系客服</span>
-        <button open-type="contact">客服</button>
+        <button open-type="contact">联系客服</button>
       </div>
       <div class="icon-text" @click="toCart">
         <span class="iconfont icon-cart"></span>
         <span>购物车</span>
       </div>
       <div class="btn add-cart-btn" @click="add2Cart">加入购物车</div>
-      <div class="btn buy-btn" @click="buy">立即购买</div>
+      <div class="btn buy-btn" @click="toBuy">立即购买</div>
     </div>
   </div>
 </template>
-
 <script>
-export default{
+export default {
   data () {
     return {
-      goodsDetail: {},
-      // 默认选中菜单是图文介绍
+      tabs: ['图文介绍', '规格参数'],
       activeIndex: 0,
-      menuArr: [
-        '图文介绍',
-        '规格参数'
-      ]
+      goods: {}
     }
   },
   onLoad (options) {
-    console.log(options.goodsId)
-    this.getGoodsDetail(options.goodsId)
+    let id = options.id
+    this.queryGoodsDetail(id)
   },
-  /*
-    title标题
-    imageUrl分享的图片
-  */
+  // 自定义转发内容
   onShareAppMessage () {
     return {
-      title: this.goodsDetail.goods_name,
-      imageUrl: this.goodsDetail.pics[0].pics_big
+      title: this.goods.goods_name,
+      imageUrl: this.goods.pics[0].pics_big
     }
   },
   methods: {
-		share(){
-			uni.share({
-			    provider: "weixin",
-			    scene: "WXSceneSession",
-			    type: 1,
-			    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-			    success: function (res) {
-			        console.log("success:" + JSON.stringify(res));
-			    },
-			    fail: function (err) {
-			        console.log("fail:" + JSON.stringify(err));
-			    }
-			});
+		changeIndex(index){
+			this.activeIndex = index
 		},
-    // 跳转到pay页面，并传递goodsId
-    buy () {
-      wx.navigateTo({ url: '/pages/pay/main?goodsId=' + this.goodsDetail.goods_id })
+    toBuy () {
+      // 跳转支付页面，并带上goodsId
+      wx.navigateTo({ url: '/pages/pay/main?goodsId=' + this.goods.goods_id })
     },
-    // 添加购物车
     add2Cart () {
-      // 改变state.cart
-      this.$store.commit('add2Cart', this.goodsDetail.goods_id)
+      let goodsId = this.goods.goods_id
+      this.$store.commit('add2Cart', goodsId)
     },
+    // 跳转购物车
     toCart () {
       wx.switchTab({ url: '/pages/cart/main' })
     },
-    /*
-    预览图片
-    urls：需要预览的图片http链接列表
-    */
-    previewImg (index) {
+    prevImg (index) {
       let urls = []
-      this.goodsDetail.pics.forEach(v => {
+      this.goods.pics.forEach(v => {
         urls.push(v.pics_big)
       })
       wx.previewImage({
-        current: urls[index], // 当前显示图片的http链接
-        urls
+        current: urls[index], // 默认展示图片链接
+        urls // 需要预览的图片http链接列表
       })
     },
-    getGoodsDetail (goodsId) {
+    queryGoodsDetail (id) {
       this.$request({
-        url: `/api/public/v1/goods/detail?goods_id=${goodsId}`
+        url: `/api/public/v1/goods/detail?goods_id=${id}`
       }).then(data => {
-        console.log(data)
-        this.goodsDetail = data
+        // console.log(data)
+        this.goods = data
       })
     }
   }
 }
 </script>
+
 <style lang="less">
+.iconfont {
+  font-size: 36rpx;
+}
 .wrapper {
   background-color: #f4f4f4;
   padding-bottom: 98rpx;
@@ -195,9 +181,9 @@ export default{
       flex-direction: column;
       align-items: center;
       position: relative;
-
       button {
         position: absolute;
+        top: 0;
         opacity: 0;
       }
     }
@@ -282,9 +268,9 @@ export default{
     align-items: center;
     justify-content: center;
     position: relative;
-
     button {
       position: absolute;
+      top: 0;
       opacity: 0;
     }
   }

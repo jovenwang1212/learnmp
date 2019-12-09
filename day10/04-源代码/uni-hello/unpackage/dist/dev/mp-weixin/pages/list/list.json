@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "no-data": "/components/nodata",
-    "media-item": "/pages/list/list-item"
-  }
-}

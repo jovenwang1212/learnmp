@@ -1,0 +1,35 @@
+.header.data-v-04663b4e {
+  height: 120rpx;
+  background-color: #eee;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.header input.data-v-04663b4e {
+  background-color: #fff;
+  height: 60rpx;
+  width: 720rpx;
+  padding-left: 74rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.header .search-icon.data-v-04663b4e {
+  position: absolute;
+  left: 44rpx;
+}
+.header .clear-icon.data-v-04663b4e {
+  position: absolute;
+  right: 44rpx;
+  z-index: 100;
+}
+

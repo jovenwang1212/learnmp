@@ -1,19 +1,16 @@
 <template>
   <div>
     <div class="address-wrapper">
-      <div class="address"
-           v-if="addr.userName">
+      <div class="address" v-if="address.userName">
         <div class="receiver">
-          <p class="name">收货人：{{addr.userName}}</p>
-          <p class="phone-num">{{addr.telNumber}}</p>
+          <p class="name">收货人：{{address.userName}}</p>
+          <p class="phone-num">{{address.telNumber}}</p>
           <span class="iconfont icon-arrow-right"></span>
         </div>
-        <p class="address-txt">收货地址：{{fullAddr}}</p>
+        <p class="address-txt">收货地址：{{detailAddr}}</p>
       </div>
       <!-- 选择地址 -->
-      <div class="choose-address"
-           v-else
-           @click="getAddr">
+      <div class="choose-address" v-else @click="getAddr">
         <p>请选择地址</p>
         <span class="iconfont icon-arrow-right"></span>
       </div>
@@ -24,10 +21,8 @@
 
     <!-- 商品列表 -->
     <ul class="goods-list">
-      <li class="goods-item"
-          v-for="item in goodsList"
-          :key="item.goods_id">
-        <img :src="item.goods_small_logo"
+      <li class="goods-item" v-for="(item, index) in goodsList" :key="index">
+         <img :src="item.goods_small_logo"
              alt="">
         <div class="right">
           <p class="text-line2">{{item.goods_name}}</p>
@@ -41,18 +36,16 @@
       </li>
     </ul>
 
-    <div class="bottom-fixed"
-         @click="pay">
+    <div class="bottom-fixed" @click="pay">
       微信支付({{totalPrice}}.00)
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
     return {
-      addr: wx.getStorageSync('addr') || {},
+      address: wx.getStorageSync('address') || {},
       goodsList: []
     }
   },
@@ -60,157 +53,132 @@ export default {
     this.goodsId = options.goodsId
     this.getGoodsList()
   },
-  computed: {
-    fullAddr () {
-      return this.addr.provinceName + this.addr.cityName + this.addr.countyName + this.addr.detailInfo
-    },
-    totalPrice () {
-      // 每个商品的数量*价格
-      return this.goodsList.reduce((sum, item) => {
-        return sum + item.num * item.goods_price
-      }, 0)
-    }
-  },
   methods: {
     pay () {
-      if (!this.addr.userName) {
-        this.$showToast('请选择地址哦')
+      // 判断是否有收货地址
+      if (!this.address.userName) {
+        wx.showToast({
+          title: '请选择收货地址',
+          icon: 'none'
+        })
         return
       }
-      let token = wx.getStorageSync('token')
-      if (!token) {
-        wx.navigateTo({ url: '/pages/login/main' })
+      // 判断是否有商品
+      if (!this.totalPrice) {
+        wx.showToast({
+          title: '请选择商品',
+          icon: 'none'
+        })
         return
       }
-
-      this.createOrder(token)
+      // 创建订单
+      this.createOrder()
     },
-    createOrder (token) {
+    createOrder () {
       this.$request({
         url: '/api/public/v1/my/orders/create',
-        isAuth: true,
         method: 'POST',
+        isAuth: true,
         data: {
           order_price: this.totalPrice,
-          consignee_addr: this.fullAddr,
+          consignee_addr: this.detailAddr,
           goods: this.filterGoodsList()
-
-        }
-      }).then(data => {
-        this.doPay(token, data.order_number)
-      }).finally(() => {
-        // 如果是从商详的立即购买过来，不需要整理cart
-        if (this.goodsId) {
-
-        }
-        // 不管创建订单成功还是失败，都应该从购物车里面去掉
-        this.$store.commit('removeCart')
-      })
-    },
-    doPay (token, orderNumber) {
-      this.$request({
-        url: '/api/public/v1/my/orders/req_unifiedorder',
-        isAuth: true,
-        method: 'POST',
-        data: {
-          order_number: orderNumber
         }
       }).then(data => {
         // console.log(data)
+        this.orderNumber = data.order_number
+        // 订单创建成功，无论是否支付，都把checked的商品去掉
+        if (!this.gooodsId) {
+          this.arrangeCart()
+        }
+        this.doPay()
+      })
+    },
+    arrangeCart () {
+      this.$store.commit('arrangeCart')
+    },
+    doPay () {
+      this.$request({
+        url: '/api/public/v1/my/orders/req_unifiedorder',
+        method: 'POST',
+        isAuth: true,
+        data: {
+          order_number: this.orderNumber
+        }
+      }).then(data => {
+        console.log(data)
         wx.requestPayment({
           ...data.pay,
-          success: res => {
-            // this.$showToast('成功')
-            // 订单结果页
+          success (res) {
+            // console.log('成功支付')
             wx.navigateTo({ url: '/pages/order_result/main' })
           },
-          fail: () => {
-            // this.$showToast('失败')
-            wx.navigateTo({ url: '/pages/order_result/main?orderNumber=' + orderNumber })
-          },
-          complete: () => { }
+          fail: (res) => {
+            console.log('支付失败')
+            wx.navigateTo({ url: '/pages/order_result/main?orderNumber=' + this.orderNumber })
+          }
         })
       })
     },
     filterGoodsList () {
-      let _goods = []
-
+      let arr = []
       this.goodsList.forEach(v => {
-        _goods.push({
+        arr.push({
           goods_id: v.goods_id,
           goods_number: v.num,
           goods_price: v.goods_price
         })
       })
-
-      return _goods
+      return arr
     },
-    getGoodsList () {
-      /*
-      let cart = {
-        24234:{
-          num:1,
-          check:true
-        },
-        57567:{
-          num:1,
-          check:true
+    filterCart (cart) {
+      let ids = []
+      for (let key in cart) {
+        let goods = cart[key]
+        if (goods.checked) {
+          ids.push(key)
         }
       }
-      */
-
-      let ids = ''
-      let cart = {}
-      // 如果有goodsid，直接赋值给ids
+      return ids.join(',')
+    },
+    getGoodsList () {
+      let cart = this.$store.getters.getCart
+      // 保证立即购买的情况和原来的逻辑一样
       if (this.goodsId) {
-        ids = this.goodsId
-      } else {
-        cart = this.$store.getters.getCart
-        let buyList = this.filterCart(cart)
-        ids = Object.keys(buyList).join(',')
+        cart = {
+          [this.goodsId]: {
+            num: 1,
+            checked: true
+          }
+        }
       }
+      // 只有购物车里面checked的商品才展示在商品列表里面
+      let ids = this.filterCart(cart)
 
+      // 如果购物车数据是空的，return
+      if (!ids) {
+        return
+      }
       this.$request({
         url: '/api/public/v1/goods/goodslist?goods_ids=' + ids
       }).then(data => {
-        // console.log(data)
-
-        let goodsList = data
-        if (this.goodsId) {
-          goodsList[0].num = 1
-        } else {
-          // cart和goodslist数据合并
-          goodsList.forEach(v => {
-            let obj = cart[v.goods_id]
-            v.num = obj.num
-          })
-        }
-
-        this.goodsList = goodsList
+        // goodsList和购物车数据融合
+        data.forEach(v => {
+          v.num = cart[v.goods_id].num
+          v.checked = cart[v.goods_id].checked
+        })
+        this.goodsList = data
       })
     },
-    // 购物车的数据，如果没有checked，就去掉
-    filterCart (c) {
-      let cart = Object.assign({}, c)
-      for (let key in cart) {
-        if (!cart[key].checked) {
-          delete cart[key]
-        }
-      }
-      return cart
-    },
     getAddr () {
-      /*
-      1. 首次请求权限
-      2. 如果允许的话，可以调接口获取相应的授权数据
-      3.如果拒绝，没有反应。需要引导打开设置，允许
-      */
-      wx.getSetting({ success: res => {
+			debugger
+      uni.getSetting({ success: res => {
         console.log(res)
         if (res.authSetting['scope.address'] === false) {
-          wx.showModal({
+          // 被拒绝，提示打开
+          uni.showModal({
             title: '提示', // 提示的标题,
-            content: '请允许用户访问通讯地址', // 提示的内容,
+            content: '请打开设置允许通讯地址', // 提示的内容,
             showCancel: true, // 是否显示取消按钮,
             cancelText: '取消', // 取消按钮的文字，默认为取消，最多 4 个字符,
             cancelColor: '#000000', // 取消按钮的文字颜色,
@@ -218,30 +186,39 @@ export default {
             confirmColor: '#3CC51F', // 确定按钮的文字颜色,
             success: res => {
               if (res.confirm) {
-                wx.openSetting({ success: res => { } })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+                uni.openSetting()
               }
             }
           })
         } else {
-          // 允许
-          // 首次
-          wx.authorize({
+          // 第一次授权或者已允许，请求授权，调接口拿数据
+          uni.authorize({
             scope:
-                'scope.address',
-            success: res => {
-              wx.chooseAddress({
-                success: (res) => {
-                  console.log(res)
-                  this.addr = res
-                  wx.setStorageSync('addr', this.addr)
+              'scope.address',
+            success: () => {
+              uni.chooseAddress({
+                success: (data) => {
+                  console.log(data)
+                  this.address = data
+                  uni.setStorageSync('address', data)
                 }
               })
             }
           })
         }
       } })
+    }
+  },
+  computed: {
+    detailAddr () {
+      let {provinceName, cityName, countyName, detailInfo} = this.address
+      return provinceName + cityName + countyName + detailInfo
+    },
+    // 所有被选中的商品价格*数量
+    totalPrice () {
+      return this.goodsList.reduce((sum, v) => {
+        return sum + (v.num * v.goods_price)
+      }, 0)
     }
   }
 }

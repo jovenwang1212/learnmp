@@ -4,8 +4,8 @@
     "iPhone",
     "iPad"
   ],
-  "id": "__UNI__1EAB61E",
-  "name": "优购商城",
+  "id": "__UNI__C0AD60D",
+  "name": "uni-yougou",
   "version": {
     "name": "1.0.0",
     "code": "100"
@@ -47,38 +47,6 @@
     "usingComponents": true,
     "nvueCompiler": "uni-app",
     "distribute": {
-      "icons": {
-        "android": {
-          "hdpi": "unpackage/res/icons/72x72.png",
-          "xhdpi": "unpackage/res/icons/96x96.png",
-          "xxhdpi": "unpackage/res/icons/144x144.png",
-          "xxxhdpi": "unpackage/res/icons/192x192.png"
-        },
-        "ios": {
-          "appstore": "unpackage/res/icons/1024x1024.png",
-          "ipad": {
-            "app": "unpackage/res/icons/76x76.png",
-            "app@2x": "unpackage/res/icons/152x152.png",
-            "notification": "unpackage/res/icons/20x20.png",
-            "notification@2x": "unpackage/res/icons/40x40.png",
-            "proapp@2x": "unpackage/res/icons/167x167.png",
-            "settings": "unpackage/res/icons/29x29.png",
-            "settings@2x": "unpackage/res/icons/58x58.png",
-            "spotlight": "unpackage/res/icons/40x40.png",
-            "spotlight@2x": "unpackage/res/icons/80x80.png"
-          },
-          "iphone": {
-            "app@2x": "unpackage/res/icons/120x120.png",
-            "app@3x": "unpackage/res/icons/180x180.png",
-            "notification@2x": "unpackage/res/icons/40x40.png",
-            "notification@3x": "unpackage/res/icons/60x60.png",
-            "settings@2x": "unpackage/res/icons/58x58.png",
-            "settings@3x": "unpackage/res/icons/87x87.png",
-            "spotlight@2x": "unpackage/res/icons/80x80.png",
-            "spotlight@3x": "unpackage/res/icons/120x120.png"
-          }
-        }
-      },
       "google": {
         "permissions": [
           "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -122,7 +90,7 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "2.3.7",
+      "compilerVersion": "2.4.2",
       "control": "v8",
       "nvueCompiler": "uni-app",
       "renderer": "auto",
@@ -137,26 +105,26 @@
         {
           "pagePath": "pages/home/main",
           "text": "首页",
-          "iconPath": "/static/icons/icon_home@3x.png",
-          "selectedIconPath": "/static/icons/icon_home_active@3x.png"
+          "iconPath": "/static/tabs/icon_home@3x.png",
+          "selectedIconPath": "/static/tabs/icon_home_active@3x.png"
         },
         {
           "pagePath": "pages/category/main",
           "text": "分类",
-          "iconPath": "/static/icons/icon_category@3x.png",
-          "selectedIconPath": "/static/icons/icon_category_active@3x.png"
+          "iconPath": "/static/tabs/icon_category@3x.png",
+          "selectedIconPath": "/static/tabs/icon_category_active@3x.png"
         },
         {
           "pagePath": "pages/cart/main",
           "text": "购物车",
-          "iconPath": "/static/icons/icon_cart@3x.png",
-          "selectedIconPath": "/static/icons/icon_cart_active@3x.png"
+          "iconPath": "/static/tabs/icon_cart@3x.png",
+          "selectedIconPath": "/static/tabs/icon_cart_active@3x.png"
         },
         {
           "pagePath": "pages/me/main",
           "text": "我的",
-          "iconPath": "/static/icons/icon_me@3x.png",
-          "selectedIconPath": "/static/icons/icon_me_active@3x.png"
+          "iconPath": "/static/tabs/icon_me@3x.png",
+          "selectedIconPath": "/static/tabs/icon_me_active@3x.png"
         }
       ],
       "borderStyle": "rgba(0,0,0,0.4)",

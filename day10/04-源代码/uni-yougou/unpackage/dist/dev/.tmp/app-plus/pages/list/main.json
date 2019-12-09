@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "搜索列表",
-  "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark",
-  "onReachBottomDistance": 50,
-  "usingComponents": {
-    "search": "/components/search"
-  }
-}

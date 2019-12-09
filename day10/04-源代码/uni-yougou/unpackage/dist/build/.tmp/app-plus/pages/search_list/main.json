@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#eee",
+  "backgroundTextStyle": "dark",
+  "navigationBarTitleText": "搜索列表",
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "search-bar": "/components/SearchBar"
+  }
+}

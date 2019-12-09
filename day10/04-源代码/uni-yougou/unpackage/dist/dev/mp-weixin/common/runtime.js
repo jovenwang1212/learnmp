@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/SearchHotspot":1,"components/search":1};
+/******/ 		var cssChunks = {"components/SearchLink":1,"components/SearchBar":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/SearchHotspot":"components/SearchHotspot","components/search":"components/search"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/SearchLink":"components/SearchLink","components/SearchBar":"components/SearchBar"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

@@ -2,14 +2,15 @@
   <div class="container">
     <div class="header">
       <ul>
-        <li :class="{active:activeIndex===index}" v-for="(item,index) in tabList" :key="item" @click="changeTab(index)">{{item}}</li>
+        <li :class="{active:activeIndex===index}"
+        @click="clickQuery(index)" v-for="(item, index) in menuList" :key="index">{{item}}</li>
       </ul>
     </div>
 
     <div class="content">
       <ul>
         <li v-for="order in orderList" :key="order.order_id">
-          <div class="goods-info" v-for="(item, i) in order.goods" :key="item.goods_id">
+          <div class="goods-info" v-for="(item, goodsIdx) in order.goods" :key="goodsIdx">
             <img :src="item.goods_small_logo"
                  alt="">
             <div class="right">
@@ -25,7 +26,7 @@
           </p>
           <div class="order">
             <span>订单号:{{order.order_number}}</span>
-            <button type="primary" v-show="order.pay_status==0">
+            <button type="primary">
               支付
             </button>
           </div>
@@ -36,13 +37,12 @@
 
   </div>
 </template>
-
 <script>
 export default {
   data () {
     return {
       activeIndex: 0,
-      tabList: [
+      menuList: [
         '全部',
         '待付款',
         '待收货',
@@ -52,24 +52,22 @@ export default {
     }
   },
   onLoad (options) {
-    this.activeIndex = parseInt(options.activeIndex)
-    this.queryOrderList()
-    // 需要重置吗？no
+    this.activeIndex = parseInt(options.activeIndex) || 0
+    this.queryOrder()
   },
   methods: {
-    queryOrderList () {
+    clickQuery (index) {
+      this.activeIndex = index
+      this.queryOrder()
+    },
+    queryOrder () {
       this.$request({
-        url: `/api/public/v1/my/orders/all?type=${this.activeIndex + 1}`,
+        url: '/api/public/v1/my/orders/all?type=' + (this.activeIndex + 1),
         isAuth: true
       }).then(data => {
         console.log(data)
         this.orderList = data.orders
       })
-    },
-    changeTab (index) {
-      // 样式
-      this.activeIndex = index
-      this.queryOrderList()
     }
   }
 }

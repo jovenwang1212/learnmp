@@ -1,0 +1,1 @@
+<view><view data-event-opts="{{[['tap',[['e0',['$event']]]]]}}" class="{{['box',(isGreen)?'green':'']}}" bindtap="__e"></view><text>{{msg}}</text><input type="text" data-event-opts="{{[['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindinput="__e"/></view>

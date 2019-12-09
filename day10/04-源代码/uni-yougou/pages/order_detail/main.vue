@@ -1,37 +1,30 @@
 <template>
   <div>
     <div class="order-status">待支付</div>
-    <p>订单号:{{orderNumber}}</p>
     <div>
       <button>立即支付</button>
     </div>
   </div>
 </template>
 
-
 <script>
 export default {
-  data () {
-    return {
-      orderNumber: ''
-    }
-  },
+
   onLoad (options) {
-    this.orderNumber = options.orderNumber
-    // 请求订单详情
-    this.getOrderDetail()
+    let orderNumber = options.orderNumber
+    this.getOrderDetail(orderNumber)
   },
   methods: {
-    getOrderDetail () {
+    getOrderDetail (orderNumber) {
       this.$request({
         url: '/api/public/v1/my/orders/chkOrder',
-        data: {
-          order_number: this.orderNumber
-        },
+        method: 'POST',
         isAuth: true,
-        method: 'POST'
-      }).then(data => {
-        console.log(data)
+        data: {
+          order_number: orderNumber
+        }
+      }).then(res => {
+        console.log(res)
       })
     }
   }

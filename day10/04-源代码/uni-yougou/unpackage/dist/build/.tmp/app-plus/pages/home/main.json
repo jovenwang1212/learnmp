@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "优购",
   "usingComponents": {
-    "search-hotspot": "/components/SearchHotspot"
+    "search-link": "/components/SearchLink"
   }
 }

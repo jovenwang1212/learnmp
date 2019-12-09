@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "分类",
   "usingComponents": {
-    "search-hotspot": "/components/SearchHotspot"
+    "search-link": "/components/SearchLink"
   }
 }

@@ -7,7 +7,8 @@
     <!-- 商品列表 -->
     <ul class="goods-list">
       <li class="goods-item" v-for="item in goodsList" :key="item.goods_id">
-        <span class="iconfont" :class="item.checked?'icon-check':'icon-uncheck'" @click="item.checked=!item.checked"></span>
+        <span class="iconfont" :class="item.checked?'icon-check':'icon-uncheck'"
+        @click="toggleCheck(item)"></span>
         <img :src="item.goods_small_logo"
              alt="">
         <div class="right">
@@ -15,9 +16,9 @@
           <div class="btm">
             <span class="price">￥<span>{{item.goods_price}}</span>.00</span>
             <div class="goods-num">
-              <button @click="sub(item)" :disabled="item.num<2">-</button>
+              <button @click="sub(item)" :disabled="item.num===1">-</button>
               <span>{{item.num}}</span>
-              <button @click="add(item)">+</button>
+              <button @click="add(item)" >+</button>
             </div>
           </div>
         </div>
@@ -25,7 +26,8 @@
     </ul>
     <div class="account">
       <div class="select-all">
-        <span class="iconfont" :class="isAll?'icon-check':'icon-uncheck'" @click="isAll=!isAll"></span>
+        <span class="iconfont" :class="isAll?'icon-check':'icon-uncheck'" 
+        @click="isAll = !isAll"></span>
         <span>全选</span>
       </div>
 
@@ -46,54 +48,16 @@ export default {
     }
   },
   onShow () {
-    // 从内存里面获取cart
-    let cart = this.$store.getters.getCart
-    this.getGoodsList(cart)
-    // 设置购物车角标
+    // 发请求之前，需要重置goodsList
+    this.goodsList = []
+    this.getGoodsList()
     wx.setTabBarBadge({
-      index: 2, // tabBar的哪一项，从左边算起,
-      text: this.badgeNum.toString() // 显示的文本，超过 3 个字符则显示成“…”,
+      index: 2,
+      text: Object.keys(this.$store.getters.getCart).length.toString()
     })
   },
   onHide () {
     this.$store.commit('updateCart', this.goodsList)
-  },
-  computed: {
-    // 是否所有的商品都勾选
-    isAll: {
-      get () {
-        return this.goodsList.every(v => {
-          return v.checked
-        })
-      },
-      set (newValue) {
-        // console.log(newValue)
-        this.goodsList.forEach(v => {
-          v.checked = newValue
-        })
-      }
-    },
-    badgeNum () {
-      return this.goodsList.reduce((sum, item) => {
-        return sum + (item.checked ? 1 : 0)
-      }, 0)
-    },
-    totalNum () {
-      // let sum = 0
-      // this.goodsList.forEach(v => {
-      //   sum += v.num
-      // })
-      // return sum
-      return this.goodsList.reduce((sum, item) => {
-        return sum + (item.checked ? item.num : 0)
-      }, 0)
-    },
-    totalPrice () {
-      // 每个商品的数量*价格
-      return this.goodsList.reduce((sum, item) => {
-        return sum + (item.checked ? (item.num * item.goods_price) : 0)
-      }, 0)
-    }
   },
   methods: {
 		sub(item){
@@ -102,44 +66,89 @@ export default {
 		add(item){
 			item.num++
 		},
+		toggleCheck(item){
+			item.checked=!item.checked
+		},
     doAccount () {
-      // 如果商品数量为0，提示
+      // 商品数量为0
       if (!this.totalNum) {
-        this.$showToast('请添加商品')
+        wx.showToast({
+          title: '请选择商品',
+          icon: 'none'
+        })
         return
       }
 
-      // 如果没有token，跳转登陆
-      let token = wx.getStorageSync('token')
-      if (!token) {
-        wx.navigateTo({ url: '/pages/login/main' })
-        return
-      }
-
-      // 跳转pay
+      // 跳转支付
       wx.navigateTo({ url: '/pages/pay/main' })
     },
-    getGoodsList (cart) {
-      let ids = Object.keys(cart).join(',')
-      if (!ids.trim()) {
-        this.goodsList = []
-        this.$showToast('购物车空的！')
+    getGoodsList () {
+      let cart = this.$store.getters.getCart
+			let ids = Object.keys(cart).join(',')
+      // 如果购物车数据是空的，return
+      if (!ids) {
         return
       }
       this.$request({
         url: '/api/public/v1/goods/goodslist?goods_ids=' + ids
       }).then(data => {
-        // console.log(data)
-
-        let goodsList = data
-        // cart和goodslist数据合并
-        goodsList.forEach(v => {
-          let obj = cart[v.goods_id]
-          v.num = obj.num
-          v.checked = obj.checked
+        // goodsList和购物车数据融合
+        data.forEach(v => {
+          v.num = cart[v.goods_id].num
+          v.checked = cart[v.goods_id].checked
         })
-        this.goodsList = goodsList
+        this.goodsList = data
       })
+    }
+  },
+  computed: {
+    // 所有被选中的商品价格*数量
+    totalPrice () {
+      return this.goodsList.reduce((sum, v) => {
+        return sum + (v.checked ? v.num * v.goods_price : 0)
+      }, 0)
+    },
+    // 所有被选中的商品的数量
+    totalNum () {
+      // let sum = 0
+      // this.goodsList.forEach(v => {
+      //   if (v.checked) {
+      //     sum += v.num
+      //   }
+      // })
+      // return sum
+
+      return this.goodsList.reduce((sum, v) => {
+        return sum + (v.checked ? v.num : 0)
+      }, 0)
+    },
+    isAll: {
+      // 如果所有商品都勾选的话，就true;详解：拿出goodsList.length==勾选商品的个数
+      // 默认true,遍历goodsList，如果有一项没勾选的话，就false
+      // let _isAll = true
+      // this.goodsList.forEach(v => {
+      //   if (!v.checked) {
+      //     _isAll = false
+      //     // break
+      //   }
+      // })
+      // for (let item of this.goodsList) {
+      //   if (!item.checked) {
+      //     _isAll = false
+      //     break
+      //   }
+      // }
+      // return _isAll
+      get () {
+        return this.goodsList.every(v => {
+          return v.checked
+        })
+      },
+      set (status) {
+        this.goodsList.forEach(v => {
+          v.checked = status
+        })
+      }
     }
   }
 }
@@ -148,7 +157,7 @@ export default {
 
 <style lang="less">
 .iconfont{
-  font-size: 50rpx;
+  font-size: 44rpx;
 }
 .title {
   height: 88rpx;

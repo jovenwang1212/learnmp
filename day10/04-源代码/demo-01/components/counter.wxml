@@ -1,5 +1,0 @@
-<view class="counter">
-
-<text>{{num}}</text>
-<button bindtap="add">+</button>
-</view>

@@ -1,42 +1,41 @@
 <template>
   <div class="wrapper">
-    <search @confirm="toList" :query="keyword"/>
+    <SearchBar @confirm="toSearchList" :query="query"/>
     <div class="history-search">
       <div class="title">
         <span class="title">历史搜索</span>
-        <icon type="clear"
-              size="18" @click="clear">
-        </icon>
+        <icon type="clear" size="18" @click="clearList"> </icon>
       </div>
       <ul>
-        <li v-for="(item,index) in keywordList" :key="item" @click="clickSearch(item,index)">{{item}}</li>
+        <li v-for="item in keywordList" :key="item" @click="toSearchList(item)">{{item}}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import Search from '@/components/search.vue'
+import SearchBar from '@/components/SearchBar'
+
+const KEYWORD_LIST = 'keyword_list'
 export default {
-  components: {
-    Search
-  },
   data () {
     return {
-      keywordList: wx.getStorageSync('keywordList') || [],
-      keyword: ''
+      keywordList: [],
+      query: ''
     }
   },
-  // 前一个页面back的时候，取storage数据
+  components: {
+    SearchBar
+  },
   onShow () {
-    this.keywordList = wx.getStorageSync('keywordList') || []
-    this.keyword = ''
+    this.keywordList = wx.getStorageSync(KEYWORD_LIST) || []
+    this.query = ''
   },
   methods: {
-    clear () {
+    clearList () {
       wx.showModal({
         title: '提示', // 提示的标题,
-        content: '你确定要删除所有历史搜索吗？', // 提示的内容,
+        content: '你确定要清空历史搜索记录吗？', // 提示的内容,
         showCancel: true, // 是否显示取消按钮,
         cancelText: '取消', // 取消按钮的文字，默认为取消，最多 4 个字符,
         cancelColor: '#000000', // 取消按钮的文字颜色,
@@ -44,38 +43,25 @@ export default {
         confirmColor: '#3CC51F', // 确定按钮的文字颜色,
         success: res => {
           if (res.confirm) {
-            // 清空 keywordList
-            wx.removeStorageSync('keywordList')
+            wx.removeStorageSync({ key: KEYWORD_LIST })
             this.keywordList = []
           }
         }
       })
     },
-    toList (data) {
-      // keyword的改动要设置，不然在search组件里面无法watch到query的改动
-      this.keyword = data
-      // data需要显示在历史搜索的第一个
-      let _keywordList = [...this.keywordList]
-      // 如果包含的话，先删除。直接插在前面
-      let newKeywordList = _keywordList.filter(v => {
+    toSearchList (data) {
+      this.query = data
+      // 先要去掉将添加的Keyword
+      let _keywordList = this.keywordList.filter(v => {
         return v !== data
       })
 
-      newKeywordList.unshift(data)
-      // 存storage
-      wx.setStorageSync('keywordList', newKeywordList)
-
-      wx.navigateTo({ url: '/pages/list/main?keyword=' + data })
-    },
-    clickSearch (item, index) {
-      let _keywordList = [...this.keywordList]
-      // 如果包含的话，先删除。直接插在前面
-      _keywordList.splice(index, 1)
-
-      _keywordList.unshift(item)
-      // 存storage
-      wx.setStorageSync('keywordList', _keywordList)
-      wx.navigateTo({ url: '/pages/list/main?keyword=' + item })
+      // keywordList头部添加关键字，并存储
+      _keywordList.unshift(data)
+      wx.setStorageSync(KEYWORD_LIST, _keywordList)
+      wx.navigateTo({
+        url: `/pages/search_list/main?query=${data}`
+      })
     }
   }
 }

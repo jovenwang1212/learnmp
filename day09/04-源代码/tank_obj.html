@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    canvas {
+      background-color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="800" height="800">
+  </canvas>
+  <script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    // 坦克类
+    function Tank(x, y, imgUrl='./images/p1tankU.gif') {
+      this.x = x
+      this.y = y
+      this.imgUrl = imgUrl
+    }
+
+    Tank.prototype.draw = function () {
+      //画坦克
+      let img = new Image()
+      img.src = this.imgUrl
+      img.onload =  ()=> {
+        ctx.drawImage(img, this.x, this.y, 30, 30);
+      }
+    }
+
+
+    class PlayTank extends Tank{
+      move()
+    } 
+
+    class EnemyTank extends Tank{
+      move()
+    }
+
+    let t30 = new Tank(400,770)
+    t30.draw()
+
+    let enemyTank = new Tank(400,0,'./images/enemy2U.gif')
+    enemyTank.draw()
+
+   
+
+    function move() {
+      // 移动
+      window.addEventListener('keydown', function (event) {
+        // console.log(event)
+        //TODO 移动时，坦克方向需要改动
+        switch (event.key) {
+          case 'ArrowUp':
+            y -= 5;
+            break;
+          case 'ArrowDown':
+            y += 5;
+            break;
+          case 'ArrowLeft':
+            x -= 5
+            break;
+          case 'ArrowRight':
+            x += 5
+            break;
+
+          default:
+            break;
+        }
+        //先清除画布
+        ctx.clearRect(0, 0, c.width, c.height);
+        // 再画坦克
+        ctx.drawImage(img, x, y, 30, 30);
+      })
+    }
+
+
+
+    //发射 
+    // fire()
+    //被击中爆炸
+    // hit()
+  </script>
+</body>
+
+</html>

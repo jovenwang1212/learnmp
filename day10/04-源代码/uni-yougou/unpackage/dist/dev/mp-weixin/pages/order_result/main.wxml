@@ -1,1 +1,1 @@
-<view class="_div"><button data-event-opts="{{[['tap',[['toHome',['$event']]]]]}}" bindtap="__e">首页</button><block wx:if="{{orderNumber}}"><button data-event-opts="{{[['tap',[['toOrderDetail',['$event']]]]]}}" bindtap="__e">查看订单详情</button></block><view class="_div">一些广告。。。</view></view>
+<view class="_div"><button data-event-opts="{{[['tap',[['toIndex',['$event']]]]]}}" bindtap="__e">首页</button><block wx:if="{{orderNumber}}"><button data-event-opts="{{[['tap',[['toOrderDetail',['$event']]]]]}}" bindtap="__e">查看订单详情</button></block><view class="_div">一些广告。。。</view></view>

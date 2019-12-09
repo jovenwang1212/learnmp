@@ -1,6 +1,0 @@
-.counter{
-  height: 100px;
-  width: 300px;
-  border:1px solid green;
-  text-align: center;
-}

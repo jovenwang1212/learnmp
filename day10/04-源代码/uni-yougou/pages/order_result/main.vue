@@ -1,11 +1,10 @@
 <template>
   <div>
-    <button @click="toHome">首页</button>
-    <button v-if="orderNumber" @click="toOrderDetail">查看订单详情</button>
+    <button @click="toIndex">首页</button>
+    <button @click="toOrderDetail" v-if="orderNumber">查看订单详情</button>
     <div>一些广告。。。</div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -15,17 +14,19 @@ export default {
   },
   onLoad (options) {
     this.orderNumber = options.orderNumber
-    wx.setNavigationBarTitle({ title: this.orderNumber ? '订单失败' : '订单成功' })
+    // 设置标题
+    wx.setNavigationBarTitle({ title: this.orderNumber ? '支付失败' : '支付成功' })
   },
   methods: {
-    toHome () {
+    toIndex () {
+      // 跳转到首页
       wx.switchTab({ url: '/pages/home/main' })
     },
     toOrderDetail () {
-      wx.navigateTo({ url: '/pages/order_detail/main' })
+    // 跳转订单详情，传递orderNubmer
+      wx.navigateTo({ url: '/pages/order_detail/main?orderNumber=' + this.orderNumber })
     }
   }
-
 }
 </script>
 <style>

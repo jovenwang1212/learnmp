@@ -1,76 +1,69 @@
-._img,
-image {
+.content {
+  position: fixed;
+  top: 100rpx;
   width: 100%;
-}
-.main {
+  bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: #333;
-  position: absolute;
-  top: 100rpx;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  font-size: 14px;
 }
-.left {
+.content .left {
   width: 198rpx;
+  height: 100%;
   overflow: auto;
 }
-.left scroll-view {
-  height: 100%;
-}
-.left .item {
+.content .left ._li {
   height: 100rpx;
-  background-color: #f4f4f4;
   border-bottom: 1rpx solid #eee;
+  text-align: center;
+  line-height: 100rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  line-height: 100rpx;
-  text-align: center;
+  background-color: #f4f4f4;
+  color: #333;
 }
-.left .item.active {
-  color: #eb4450;
+.content .left ._li.active {
   background-color: #fff;
+  color: #eb4450;
   position: relative;
 }
-.left .item.active::before {
+.content .left ._li.active::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 8rpx;
   height: 60rpx;
   background-color: #eb4450;
   left: 0;
   top: 20rpx;
 }
-.right {
+.content .right {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  overflow: scroll;
   padding: 20rpx 16rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   height: 100%;
+  overflow: auto;
 }
-.right > ._img {
-  width: 520rpx;
+.content .right > ._img {
   height: 180rpx;
+  width: 520rpx;
 }
-.right .title {
+.cate2 {
+  margin-bottom: 20rpx;
+}
+.cate2 > ._p {
   height: 110rpx;
+  line-height: 110rpx;
   color: #e0e0e0;
   text-align: center;
-  line-height: 110rpx;
 }
-.right .title ._span {
+.cate2 > ._p ._span {
   margin: 0 30rpx;
   color: #333;
 }
-.right .cate2 > ._ul {
+.cate2 ._ul {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -79,16 +72,27 @@ image {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.right .cate3 {
+.cate3 {
   width: 33.33%;
-  text-align: center;
-  margin-top: 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-.right .cate3 ._img {
+.cate3 > ._img {
   width: 120rpx;
   height: 120rpx;
 }
-.right .cate3 ._p {
-  margin-top: 14rpx;
+.cate3 ._span {
+  margin: 20rpx 0;
 }
 

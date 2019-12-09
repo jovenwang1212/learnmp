@@ -1,2 +1,0 @@
-setCssToHead([".",[1],"order-status{ text-align: center; margin-top:",[0,50],"; margin-bottom:",[0,100],"; }\n",],undefined,{path:"./pages/order_detail/main.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/order_detail/main.wxml') } }));

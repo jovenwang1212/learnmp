@@ -1,56 +1,63 @@
-import Vue from 'vue'
+// const BASE_URL = 'https://ugo.botue.com'
 const BASE_URL = 'https://www.uinav.com'
-// const BASE_URL = 'https://autumnfish.cn/wx/'
-
-export default function request (options) {
+function request (options) {
+  // 开启loading
+  if (!options.noLoading) {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+  }
+	
   return new Promise((resolve, reject) => {
-    // 请求发出前loading,默认有loading
-
-    if (!options.noLoading) {
-      wx.showLoading({
-        title: ''
-      })
-      // wx.showNavigationBarLoading()
-    }
+    // 如果options里面有isAuth，就传token
+  // 如果无须登录态，token传空也可以的
     let token = ''
     if (options.isAuth) {
       token = wx.getStorageSync('token')
-      // 如果没有token，跳转登录、
+      // 如果需要登录态，但是没有token，跳转登录
       if (!token) {
         wx.navigateTo({ url: '/pages/login/main' })
-        return
+				reject()
+				return 
       }
     }
 
     wx.request({
-      url: `${BASE_URL}${options.url}`,
-      data: options.data || {},
-      method: options.method,
+      url: BASE_URL + options.url,
+      data: options.data,
+      method: options.method || 'GET',
       header: {
-        'Authorization': token
+        Authorization: token
       },
       success: res => {
-        const {meta, message} = res.data
+        let { meta, message } = res.data
         if (meta.status === 200) {
+          // 成功的消息
           resolve(message)
-        } else if (meta.status === 401) {
-          // 去登陆页面
-          wx.navigateTo({ url: '/pages/login/main' })
         } else {
-          Vue.prototype.$showToast(`[${meta.status}]${meta.msg}`)
+          // console.log('这里进入到success')
+          wx.showToast({
+            title: `[${meta.status}]${meta.msg}`, // 提示的内容,
+            icon: 'none'
+          })
+          reject(meta)
         }
       },
-      fail: (err) => {
-        Vue.prototype.$showToast(err.errMsg)
-        // reject(err)
+      fail: () => {
+        wx.showToast({
+          title: `网络错误！`, // 提示的内容,
+          icon: 'none'
+        })
       },
       complete () {
-        // 请求完成后关闭loading
+        // 关闭loading
         if (!options.noLoading) {
           wx.hideLoading()
-          // wx.hideNavigationBarLoading()
         }
       }
     })
   })
 }
+
+export default request

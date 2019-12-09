@@ -1,63 +1,64 @@
 <template>
-
-<div class="container">
-  <SearchHotspot></SearchHotspot>
-  <!-- 轮播图 -->
-  <swiper indicator-dots autoplay circular indicator-active-color="#fff" indicator-color="rgba(255,255,255,0.3)">
-      <block>
-          <swiper-item v-for="item in swiperdata" :key="item.goods_id">
-              <img :src="item.image_src" alt="">
-          </swiper-item>
+  <div>
+    <SearchLink/>
+    <!-- 轮播图 -->
+    <swiper
+      indicator-dots
+      autoplay
+      circular
+      indicator-color="rgba(255,255,255,0.3)"
+      indicator-active-color="#fff"
+    >
+      <block v-for="(item, index) in swiperdata" :key="index">
+        <swiper-item>
+          <image :src="item.image_src"></image>
+        </swiper-item>
       </block>
-  </swiper>
+    </swiper>
 
-  <!-- 分类 -->
-  <div class="categories">
-    <img v-for="(item, index) in catitems" :key="index" :src="item.image_src" alt="">
-  </div>
+    <!-- 分类 -->
+    <view class="cates">
+      <view v-for="(item, index) in catitems" :key="index">
+        <img :src="item.image_src" alt="" />
+      </view>
+    </view>
 
-  <!-- 楼层 -->
-  <ul class="floor">
-    <li v-for="(item, index) in floordata" :key="index">
-      <img :src="item.floor_title.image_src" alt="">
-      <div class="product-list">
-        <img :src="item.product_list[0].image_src" alt="">
-        <div class="right">
-          <block
-           v-for="(imgItem, imgIndex) in item.product_list" :key="imgItem.name">
-            <img v-if="imgIndex"  :src="imgItem.image_src" alt="">
-          </block>
+    <!-- 楼层 -->
+    <view>
+      <view class="floor-item" v-for="(floor, fIndex) in floordata" :key="fIndex">
+        <img :src="floor.floor_title.image_src" alt="" />
+        <div class="products">
+          <img :src="floor.product_list[0].image_src" alt="" />
+          <div class="right">
+            <block v-for="(item, index) in floor.product_list" :key="index">
+              <img v-if="index" :src="item.image_src" alt="" />
+            </block>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>
-
-</div>
+      </view>
+    </view>
+  </div>
 </template>
 
 <script>
-import SearchHotspot from '@/components/SearchHotspot'
-
+import SearchLink from '@/components/SearchLink'
 export default {
   components: {
-    SearchHotspot
+    SearchLink
   },
   data () {
     return {
-      // 轮播图数据
       swiperdata: [],
       catitems: [],
       floordata: []
     }
   },
-
-  onLoad () {
+  created () {
     this.getSwiperdata()
     this.getCatitems()
     this.getFloordata()
   },
   methods: {
-    // 请求轮播图数据
     getSwiperdata () {
       this.$request({
         url: '/api/public/v1/home/swiperdata'
@@ -65,7 +66,6 @@ export default {
         this.swiperdata = data
       })
     },
-    // 分类图片
     getCatitems () {
       this.$request({
         url: '/api/public/v1/home/catitems'
@@ -73,7 +73,6 @@ export default {
         this.catitems = data
       })
     },
-    // 楼层图片
     getFloordata () {
       this.$request({
         url: '/api/public/v1/home/floordata'
@@ -86,48 +85,45 @@ export default {
 </script>
 
 <style lang="less">
-swiper{
+swiper image {
+  width: 100%;
   height: 340rpx;
-  img{
-    width:100%;
-    height: 100%;
-  }
 }
 
-.categories{
-  display: flex;
+.cates {
   height: 194rpx;
+  display: flex;
   align-items: center;
   justify-content: space-evenly;
-  img{
+  img {
     width: 128rpx;
     height: 140rpx;
   }
 }
-.floor{
-  li{
-    >img{
-      width: 100%;
-      height: 88rpx;
-    }
-    
-  }
-}
 
-.product-list{
-  padding:20rpx 17rpx;
-  display: flex;
-  >img{
-    width:232rpx;
-    height: 386rpx;
+.floor-item {
+  margin-bottom: 20rpx;
+  > img {
+    width: 100%;
+    height: 88rpx;
   }
-  .right{
-    flex:1;
-    font-size: 0;
-    img{
-      margin:0 0 10rpx 10rpx;
+  .products {
+    display: flex;
+    margin-top: 20rpx;
+    padding-left: 18rpx;
+    > img {
       width: 232rpx;
-      height: 188rpx;
+      height: 386rpx;
+    }
+    .right {
+      flex: 1;
+      font-size: 0;
+      > img {
+        width: 232rpx;
+        height: 188rpx;
+        margin-left: 10rpx;
+        margin-bottom: 10rpx;
+      }
     }
   }
 }

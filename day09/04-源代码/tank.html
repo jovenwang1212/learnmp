@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    canvas {
+      background-color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="800" height="800">
+  </canvas>
+  <script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    // 坦克相关的变量
+    let x = 400
+    let y = 770
+    let img = null
+
+    draw()
+    move()
+
+    function draw() {
+      //画坦克
+      img = new Image()
+      img.src = './images/p1tankU.gif'
+      img.onload = function () {
+        ctx.drawImage(img, x, y, 30, 30);
+      }
+    }
+
+    function move() {
+      // 移动
+      window.addEventListener('keydown', function (event) {
+        // console.log(event)
+        //TODO 移动时，坦克方向需要改动
+        switch (event.key) {
+          case 'ArrowUp':
+            y -= 5;
+            break;
+          case 'ArrowDown':
+            y += 5;
+            break;
+          case 'ArrowLeft':
+            x -= 5
+            break;
+          case 'ArrowRight':
+            x += 5
+            break;
+
+          default:
+            break;
+        }
+        //先清除画布
+        ctx.clearRect(0, 0, c.width, c.height);
+        // 再画坦克
+        ctx.drawImage(img, x, y, 30, 30);
+      })
+    }
+
+
+
+    //发射 
+    // fire()
+    //被击中爆炸
+    // hit()
+  </script>
+</body>
+
+</html>
