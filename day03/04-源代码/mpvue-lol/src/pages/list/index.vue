@@ -2,7 +2,8 @@
   <div class="list">
     <div class="hero"
          v-for="item in heroList"
-         :key="item.id" @click="toDetail(item.id)">
+         :key="item.id"
+         @click="toDetail(item.id)">
       <img :src="item.iconUrl"
            alt="">
       <span>{{item.name}}</span>
