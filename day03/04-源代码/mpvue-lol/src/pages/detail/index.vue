@@ -1,86 +1,87 @@
 <template>
   <div>
-    <swiper
-      circular
-      autoplay
-      indicator-dots
-      interval="1000"
-    >
-      <swiper-item v-for="item in hero.bgs" :key="item">
-        <image :src="item"></image>
-      </swiper-item>
+    <swiper indicator-dots
+            autoplay
+            circular>
+      <block v-for="item in hero.bgs"
+             :key="item">
+        <swiper-item>
+          <image :src="item"></image>
+        </swiper-item>
+      </block>
     </swiper>
 
     <view class="content">
       <view class="left">
-        <view class="title">{{ hero.title }}</view>
-        <view class="name">{{ hero.name }}</view>
-        <!-- 英雄标签 -->
+        <view class="title">{{hero.title}}</view>
+        <view class="name">{{hero.name}}</view>
+
         <view class="tags">
-          <text v-for="item in hero.tags" :key="item">{{ item }}</text>
+          <text v-for="item in hero.tags"
+                :key="item">{{item}}</text>
         </view>
+
         <view class="ability">
           <view class="item">
             <text>生存能力</text>
-            <progress
-              :percent="hero.Ability.life"
-              activeColor="#1ec76b"
-              active
-              stroke-width="12"
-              backgroundColor="#363636"
-            ></progress>
+            <progress :percent="hero.Ability.life"
+                      stroke-width="12"
+                      activeColor="#1ec76b"
+                      backgroundColor="#363636"
+                      active></progress>
           </view>
           <view class="item">
             <text>物理攻击</text>
-            <progress
-              :percent="hero.Ability.physical"
-              activeColor="#f2c40c"
-              active
-              stroke-width="12"
-              backgroundColor="#363636"
-            ></progress>
+            <progress :percent="hero.Ability.physical"
+                      stroke-width="12"
+                      activeColor="#f2c40c"
+                      backgroundColor="#363636"
+                      active></progress>
           </view>
           <view class="item">
             <text>魔法攻击</text>
-            <progress
-              :percent="hero.Ability.magic"
-              activeColor="#f2a709"
-              active
-              stroke-width="12"
-              backgroundColor="#363636"
-            ></progress>
+            <progress :percent="hero.Ability.magic"
+                      stroke-width="12"
+                      activeColor="#f2a709"
+                      backgroundColor="#363636"
+                      active></progress>
           </view>
           <view class="item">
             <text>操作难度</text>
-            <progress
-              :percent="hero.Ability.difficulty"
-              activeColor="#cb8eff"
-              active
-              stroke-width="12"
-              backgroundColor="#363636"
-            ></progress>
+            <progress :percent="hero.Ability.difficulty"
+                      stroke-width="12"
+                      activeColor="#cb8eff"
+                      backgroundColor="#363636"
+                      active></progress>
           </view>
         </view>
+
       </view>
-      <!-- 能力 -->
       <view class="right">
-        {{ hero.story }}
+        {{hero.story}}
       </view>
     </view>
   </div>
 </template>
 
 <script>
-// /*eslint-disable*/
-import heroDetailList from '@/data/lol_details_duowan'
+import heroDetailList from '../../data/lol_details_duowan'
 export default {
   data () {
     return {
-      hero: {}
+      hero: {
+        a: true
+      }
     }
   },
   onLoad (options) {
-    this.hero = heroDetailList.find(v => v.id === options.id)
+    console.log(options.id)
+    let id = options.id
+
+    // 查找heroDetailList里面id相同的那一项
+    this.hero = heroDetailList.find(v => {
+      return v.id === id
+    })
     wx.setNavigationBarTitle({ title: `${this.hero.title}-${this.hero.name}` })
   }
 }
@@ -89,52 +90,56 @@ export default {
 <style>
 page {
   background-color: #363636;
+  color: #fff;
+  font-size: 12px;
 }
 
-image {
+swiper image {
   width: 100%;
 }
 
 .content {
   display: flex;
   padding: 12px 10px 0;
-  color: #fff;
-  font-size: 12px;
 }
 
-.left {
+.content .left {
   width: 191px;
 }
-.right {
+
+.content .right {
   flex: 1;
 }
+
+.tags {
+  margin: 12px 0 18px;
+}
+
 .tags text {
   width: 30px;
   height: 22px;
   line-height: 22px;
   text-align: center;
   background-color: #029b7f;
-  display: inline-block;
   border-radius: 4px;
   margin-right: 4px;
+  display: inline-block;
 }
+
 .title {
   font-size: 14px;
 }
-
 .name {
   font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.ability {
-  margin-top: 18px;
+  margin-top: 4px;
 }
 
 .ability .item {
   display: flex;
+  margin-bottom: 4px;
 }
-.ability .item progress {
+
+progress {
   width: 100px;
   margin-left: 6px;
 }

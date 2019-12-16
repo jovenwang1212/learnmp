@@ -1,7 +1,0 @@
-<button bindtap="getWerun">获取用户微信步数</button>
-<button bindtap="getLocation">获取用户地理位置</button>
-<button bindtap="getAddr">获取用户通讯地址</button>
-<button bindtap="openSet">打开设置</button>
-<button bindtap="queryAuth">查看授权状态</button>
-
-<button open-type="getUserInfo" bindgetuserinfo="getInfo">获取用户基本信息</button>

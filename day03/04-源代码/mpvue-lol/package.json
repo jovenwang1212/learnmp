@@ -2,8 +2,8 @@
   "name": "mpvue-lol",
   "version": "1.0.0",
   "mpvueTemplateProjectVersion": "0.1.0",
-  "description": "英雄大会",
-  "author": "wangqiaowen <wangqiaowen.itcast.cn>",
+  "description": "A Mpvue project",
+  "author": "王侨文 <wangqiaowen@itcast.cn>",
   "private": true,
   "scripts": {
     "dev:wx": "node build/dev-server.js wx",

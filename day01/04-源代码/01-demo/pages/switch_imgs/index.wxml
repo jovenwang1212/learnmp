@@ -1,8 +1,0 @@
-<view class="wrapper">
-  <text>图片切换</text>
-  <image src="{{imgList[index]}}"></image>
-  <view>
-    <button size="mini" bindtap="pre">上一张</button>
-    <button size="mini" bindtap="next">下一张</button>
-  </view>
-</view>

@@ -5,42 +5,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hero:{}
-  },
-  change(e){
-    console.log(e.detail.current)
-    let count =0
-    if(e.detail.current==1){
-      count++
-    }
-
-    console.log('...   '+count)
+    hero: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
-    // for(let i=0;i<heroDetailList.length;i++){
-    //   if(heroDetailList[i].id===options.id){
-    //     this.setData({
-    //       hero:heroDetailList[i]
-    //     })
-    //   }
-    // }
-    // heroDetailList.find(v=>{
-    //   return v.id ===options.id
-    // })
-    let hero = heroDetailList.find(v=>v.id===options.id)
+    //console.log(options.id)
+    let id = options.id
+
+    //根据id查找heroDetailList里面id相等的，那一项
+    /*
+    for(let hero of heroDetailList){
+      console.log(hero)
+      if(hero.id ===id){
+        this.setData({
+          hero
+        })
+        return
+      }
+    }
+    */
+    let hero = heroDetailList.find(v => v.id === id)
+
     this.setData({
       hero
     })
-
     wx.setNavigationBarTitle({
-      title: hero.title+'-'+hero.name,
+      title: `${hero.title}-${hero.name}`,
     })
-
   },
 
   /**

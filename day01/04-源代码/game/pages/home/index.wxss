@@ -1,0 +1,20 @@
+.list{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hero{
+  width:33.33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:20px;
+}
+
+image{
+ width: 72px;
+ height: 72px; 
+}
+text{
+  font-size: 14px;
+}

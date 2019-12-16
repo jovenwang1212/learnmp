@@ -1,8 +1,0 @@
-<view class="list">
-
-  <!-- 多个hero -->
-  <view class="hero" wx:for="{{heroList}}" wx:key="id" bindtap="toDetail" data-id="{{item.id}}">
-    <image src="{{item.iconUrl}}"></image>
-    <text>{{item.name}}</text>
-  </view>
-</view>

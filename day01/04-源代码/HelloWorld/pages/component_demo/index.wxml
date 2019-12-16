@@ -1,0 +1,17 @@
+<text>这是一个寂寞的天</text>
+<view>
+<text>第二行</text>
+
+</view>
+
+<view>
+
+<image src="https://img14.360buyimg.com/babel/s590x470_jfs/t1/101424/10/6151/95401/5df1aa6eEa9888b10/04047b56d16bd56d.jpg.webp"></image>
+</view>
+
+<view>
+  <button size="mini">点我呀</button>
+  <button>点我呀</button>
+</view>
+<!-- <p>这里是P标签</p>
+<xxx>这里是xxx标签</xxx> -->

@@ -1,0 +1,9 @@
+<text>{{message}}</text>
+<view wx:for="{{songList}}" wx:key="id">
+  {{item.name}}    {{index}}
+</view>
+
+
+<button bindtap="sayHello">点我呀</button>
+
+<view class="box {{isRed?'red':''}}" bindtap="changeColor"></view>

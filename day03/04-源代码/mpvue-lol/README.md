@@ -1,6 +1,6 @@
 # mpvue-lol
 
-> 英雄大会
+> A Mpvue project
 
 ## Build Setup
 

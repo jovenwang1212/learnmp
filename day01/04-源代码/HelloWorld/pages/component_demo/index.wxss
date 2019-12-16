@@ -1,0 +1,9 @@
+text{
+  width: 100px;
+  height: 100px;
+  background-color: green;
+}
+
+image{
+  width: 100%;
+}

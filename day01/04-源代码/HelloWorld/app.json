@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/navigator1/index",
+    "pages/navigator2/index",
+    "pages/module_demo/index",
+    "pages/swiper_demo/index",
+    "pages/data_demo/index",
+    "pages/switch_images/index",
+    "pages/this_demo/index",
+    "pages/event_demo/index",
+    "pages/goods/index",
+    "pages/component_demo/index",
+    "pages/comp_demo/index",
+    "pages/logs/logs",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

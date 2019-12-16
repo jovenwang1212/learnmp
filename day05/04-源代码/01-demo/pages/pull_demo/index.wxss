@@ -1,4 +1,0 @@
-.item{
-  height: 140rpx;
-  border-bottom:1rpx solid #ccc;
-}

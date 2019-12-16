@@ -2,7 +2,7 @@
   "pages": [
     "pages/demo/main",
     "pages/index/main",
-    "pages/logs/main"
+    "pages/logs/main"  
   ],
   "window": {
     "backgroundTextStyle": "light",

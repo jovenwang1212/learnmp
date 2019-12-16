@@ -1,0 +1,25 @@
+
+page{
+  position: absolute;
+  width: 100%;
+  top:0;
+  bottom:0;
+  background-color: #566a78;
+}
+.list{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hero{
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:10px;
+}
+
+.hero image{
+  width: 88px;
+  height: 88px;
+}

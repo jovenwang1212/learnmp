@@ -31,7 +31,7 @@ if (process.env.PLATFORM === 'swan') {
   utils.writeFrameworkinfo()
 }
 
-
+// 每次运行npm run dev时，先清空dist/wx目录
 rm(path.join(config.build.assetsRoot, '*'), err => {
   if (err) throw err
   webpack(webpackConfig, function (err, stats) {

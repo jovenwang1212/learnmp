@@ -39,8 +39,9 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "详情",
+					"name": "英雄详情",
 					"pathName": "pages/detail/main",
+					"query": "id=ornn",
 					"scene": null
 				}
 			]

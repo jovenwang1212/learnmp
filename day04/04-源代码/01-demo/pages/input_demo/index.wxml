@@ -1,1 +1,0 @@
-<input type="text" confirm-type="send" bindinput="inputHandler" bindconfirm="confirmHandler"></input>

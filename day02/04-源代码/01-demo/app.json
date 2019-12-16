@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/event_demo/index",
-    "pages/navigator_demo/index",
+    "pages/navigator1/index",
+    "pages/target_demo/index",
+    "pages/review_demo/index",
     "pages/index/index",
     "pages/logs/logs"
   ],
